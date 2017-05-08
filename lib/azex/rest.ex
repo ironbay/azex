@@ -6,7 +6,7 @@ defmodule Azex.Rest do
 		{account, key} = config()
 		resource = URI.encode(resource, &URI.char_unreserved?/1)
 		date = :httpd_util.rfc1123_date()
-		signature = "#{date}\n/#{account}/#{resource}" |> IO.inspect
+		signature = "#{date}\n/#{account}/#{resource}"
 		signature = :crypto.hmac(:sha256, key, signature) |> Base.encode64
 		url = "http://#{account}.table.core.windows.net/#{resource}"
 		conn =
@@ -29,6 +29,7 @@ defmodule Azex.Rest do
 		|> Conn.execute!
 		|> Map.get(:response)
 		|> Map.get(:body)
+		|> IO.inspect
 		|> Poison.decode!
 	end
 
