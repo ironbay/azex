@@ -4,7 +4,7 @@ defmodule Azex.Rest do
 
 	def exec(resource, method \\ "GET", body \\ nil, headers \\ []) do
 		{account, key} = config()
-		resource = URI.encode(resource, &URI.char_unreserved?/1)
+		resource = URI.encode(resource, &URI.char_unreserved?/1) |> IO.inspect
 		date = :httpd_util.rfc1123_date()
 		signature = "#{date}\n/#{account}/#{resource}"
 		signature = :crypto.hmac(:sha256, key, signature) |> Base.encode64
