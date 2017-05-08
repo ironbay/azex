@@ -29,9 +29,11 @@ defmodule Azex.Rest do
 		|> Conn.execute!
 		|> Map.get(:response)
 		|> Map.get(:body)
-		|> IO.inspect
-		|> Poison.decode!
+		|> decode
 	end
+
+	defp decode(""), do: nil
+	defp decode(input), do: Poison.decode!(input)
 
 	defp config do
 		account = Application.get_env(:azex, :account)
