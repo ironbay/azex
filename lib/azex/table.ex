@@ -14,7 +14,7 @@ defmodule Azex.Table do
 	end
 
 	def get_entities(table, partition) do
-		Rest.exec("#{table}(PartitionKey='#{partition}')")
+		Rest.exec("#{table}()?$filter=(PartitionKey eq '#{partition}')")
 	end
 
 	def insert(table, partition, row, entity) do
