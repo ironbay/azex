@@ -13,6 +13,10 @@ defmodule Azex.Table do
 		Rest.exec("#{table}()")
 	end
 
+	def get_entities(table, partition) do
+		Rest.exec("#{table}(PartitionKey='#{partition}')")
+	end
+
 	def insert(table, partition, row, entity) do
 		base = %{
 			PartitionKey: partition,
